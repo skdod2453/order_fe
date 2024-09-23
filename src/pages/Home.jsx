@@ -77,7 +77,7 @@ export default function Home() {
           <button type="button" class="btn bg-warning-subtle text-warning-emphasis" onClick={e => searchCategory(e)}>검색</button>
         </div>
         </div>
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 mt-3">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 mt-1 mb-5">
       {data.length > 0 ? (
         data.map((restaurant, id) => (
           <div class="col">

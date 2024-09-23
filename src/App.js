@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css'
-import Login from './pages/Longin.jsx'
+import Login from './pages/Login.jsx'
 import Join from './pages/Join.jsx'
 import Home from './pages/Home.jsx'
 import Header from './components/Header/Header.jsx'

@@ -27,7 +27,7 @@ export default function Detail() {
   const { restaurantResponseDto, menuResponseDtoList } = data;
 
   return (
-    <>
+    <div className='container'>
       <div className="container text-center mt-3 d-flex justify-content-center">
         <div className="card h-100" style={{ width: '40rem' }}>
           <img
@@ -57,7 +57,7 @@ export default function Detail() {
         </div>
         </div>
 
-        <ol className="container list-group list-group-numbered mt-4 d-flex justify-content-center" style={{width: '60rem'}}>
+        <ol className="container list-group list-group-numbered mt-3 d-flex justify-content-center mb-5" style={{width: '60rem'}}>
             {menuResponseDtoList && menuResponseDtoList.length > 0 ? (
             menuResponseDtoList.map((menu, id) => (
                 <li key={id} className="list-group-item d-flex justify-content-between align-items-start">
@@ -73,6 +73,6 @@ export default function Detail() {
             )}
         </ol>
 
-    </>
+    </div>
   );
 }
