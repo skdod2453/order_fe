@@ -65,7 +65,7 @@ export default function Detail() {
                     <div className="fw-bold">{menu.menuName}</div>
                     {menu.menuPrice}
                 </div>
-                <button type="button" class="btn bg-warning-subtle text-warning-emphasis" >장바구니 담기</button>
+                <button type="button" className="btn bg-warning-subtle text-warning-emphasis" >장바구니 담기</button>
                 </li>
             ))
             ) : (

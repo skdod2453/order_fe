@@ -5,6 +5,7 @@ import Join from './pages/Join.jsx'
 import Home from './pages/Home.jsx'
 import Header from './components/Header/Header.jsx'
 import Detail from './pages/Detail.jsx'
+import Map from './pages/Map.jsx';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path = '/login' element = { <Login /> } />
         <Route path = '/join' element = { <Join />} />
         <Route path = '/home' element = { <Home />} />
+        <Route path = '/map' element = { <Map /> } />
         <Route path = '/detail/:restaurantId' element = { <Detail />} />
       </Routes>
     </>
