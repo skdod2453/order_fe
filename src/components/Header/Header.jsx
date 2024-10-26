@@ -7,7 +7,7 @@ import logo from '../../image/logo.png';
 
 export default function NavBar() {
   return (
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary bg-warning-subtle text-warning-emphasis">
+    <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: '#FEFFD2' }}> {/* Bootstrap 배경색 클래스 제거 */}
       <Container>
         <Navbar.Brand>
           <img src={logo} width={50} alt='logo' />
@@ -26,8 +26,8 @@ export default function NavBar() {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link href="/login">Login</Nav.Link>
-            <Nav.Link eventKey={2} href="/join">Join</Nav.Link>
+            <Nav.Link href="/login">LOGIN/JOIN</Nav.Link>
+            {/*<Nav.Link eventKey={2} href="/join">Join</Nav.Link> */}
           </Nav>
         </Navbar.Collapse>
       </Container>

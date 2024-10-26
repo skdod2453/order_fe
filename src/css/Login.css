@@ -1,0 +1,167 @@
+.login_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.7;
+  color: white;
+  background-color: #FEFFD2;
+  overflow-x: hidden;
+  margin: auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.switch_text {
+  color: rgb(66, 66, 66);
+  margin-bottom: 40px;
+}
+.form-checks {
+  display: flex; /* Flexbox를 사용하여 라디오 버튼을 한 줄에 배치 */
+  justify-content: center; /* 가운데 정렬 */
+  margin-top: 10px; /* 위쪽 여백 추가 */
+}
+
+.form-check-label {
+  color: black; /* 글씨 색깔을 검은색으로 변경 */
+  margin-right: 15px; /* 라디오 버튼 간격을 주기 위한 여백 */
+}
+
+.switch_text span {
+  margin: 0 8px;
+}
+
+[type="checkbox"]:checked,
+[type="checkbox"]:not(:checked) {
+  position: absolute;
+}
+
+.checkbox:checked+label,
+.checkbox:not(:checked)+label {
+  position: relative;
+  display: block;
+  width: 60px;
+  height: 16px;
+  border-radius: 8px;
+  margin: auto;
+  cursor: pointer;
+  background-color: #FFBF78;
+  margin-bottom: 40px;
+}
+
+.checkbox:checked+label:before,
+.checkbox:not(:checked)+label:before {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #FFBF78;
+  background-color: rgb(66, 66, 66);
+  content: '\2196'; 
+  font-size: 22px;
+  font-weight: 900;
+  z-index: 20;
+  top: -10px;
+  left: -10px;
+  text-align: center;
+  transition: all 0.5s ease;
+}
+
+.checkbox:checked+label:before {
+  transform: translateX(44px) rotate(-270deg);
+}
+
+.card-wrap {
+  width: 500px;
+  max-width: 100%;
+  height: 450px;
+  perspective: 800px;
+  margin-top: 0;
+  margin-bottom: 40px;
+}
+
+.card-wrapper {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: all 600ms ease-out;
+}
+
+.card-login,
+.card-signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #FFEEA9;
+  position: absolute;
+  border-radius: 20px;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.card-signup {
+  transform: rotateY(180deg);
+}
+
+.checkbox:checked~.card-wrap .card-wrapper {
+  transform: rotateY(180deg);
+}
+
+.center-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+}
+
+.form-style {
+  padding: 13px 20px;
+  height: 34px;
+  width: 70%;
+  border-radius: 10px;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  background-color: #F0EADC;
+  margin-top: 10px;
+  color: #000000;
+}
+
+.form-style:focus {
+  outline: none;
+}
+
+.btn_sub {
+  margin-top: 20px;
+  border-radius: 5px;
+  height: 45px;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0 30px;
+  border: none;
+  background-color: #FFBF78;
+  cursor: pointer;
+}
+
+.btn_sub:hover {
+  background-color: #FF7D29;
+}
