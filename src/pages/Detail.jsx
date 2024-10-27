@@ -1,19 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import * as restaurant from '../apis/restaurant';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import Swal from 'sweetalert2';
 
 export default function Detail() {
+  const [cookies] = useCookies(['Authorization']);
+  const token = cookies.Authorization;
   const [data, setData] = useState(null);
   const { restaurantId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getId = async () => {
       try {
-        const response = await restaurant.getId(restaurantId);
+        const response = await restaurant.getId(restaurantId, token);
         setData(response.data);
         console.log(`data: ${response.data}`);
       } catch (error) {
-        console.error(`error: ${error}`);
+        if (error.response && error.response.status === 403) {
+          navigate('/login');
+          Swal.fire({
+            icon: 'error',
+            title: '로그인 후 이용 가능합니다!',
+            text: '아이디와 비밀번호를 입력해야 합니다.',
+            confirmButtonText: '확인',
+            confirmButtonColor: '#FF7D29',
+            background: '#white',
+            color: '#754F23',
+            iconColor: '#FFBF78'
+          });
+        } else {
+          console.error(`error: ${error}`);
+        }
       }
     };
 

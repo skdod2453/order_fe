@@ -1,11 +1,14 @@
 import api from './api';
 
-export const login = (id, password) => api.post('/login', {
-  params: {
-    username: id,
-    password: password
-  }
-});
+export const login = (id, password) => {
+  const formData = new FormData(); // FormData 객체 생성
+  formData.append('username', id); // id를 username으로 추가
+  formData.append('password', password); // password 추가
+
+  return api.post('/login', formData, {
+    withCredentials: true
+  }); // 로그인 요청 전송
+};
 
 export const join = (id, password, name, phone, email, type) => {
   const formData = new FormData(); // FormData 객체 생성

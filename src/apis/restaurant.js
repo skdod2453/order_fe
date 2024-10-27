@@ -2,7 +2,11 @@ import api from './api';
 
 export const getAll = () => api.get(`/restaurant`)
 
-export const getId = (restaurantId) => api.get(`/restaurant/${restaurantId}`)
+export const getId = (restaurantId, token) => api.get(`/restaurant/${restaurantId}`,{
+  headers: {
+    Authorization: `Bearer ${token}`,
+  }
+})
 
 export const getName = (restaurantName) => api.get(`/restaurant`, {
     params: {
