@@ -1,0 +1,33 @@
+.order-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #FEFFD2;
+  min-width: 100vh;
+  padding: 20px;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 80px 20px 20px;
+  gap: 20px;
+}
+
+.order-card {
+  flex: 1 0 calc(33.33% - 40px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  margin: 10px;
+}
+
+.order-card:hover {
+  transform: scale(1.05);
+}
+
+.order-card-img-top {
+  width: 100%;
+  height: auto;
+}
