@@ -1,0 +1,260 @@
+/* 기본 HTML, body 스타일 */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #FEFFD2;
+}
+
+/* 전체 컨테이너 스타일 */
+.detail-container {
+  display: flex;
+  flex-direction: row;
+  background-color: #FEFFD2;
+  min-height: 100vh;
+  padding: 20px;
+  justify-content: flex-start;
+}
+
+.menu-review-section {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  width: calc(100% - 130px); /* 사이드바의 너비를 제외한 나머지 공간 */
+  margin-left: 300px; /* 사이드바 너비만큼 왼쪽 여백 추가 */
+}
+
+
+/* 카드 스타일 */
+.card {
+  width: 30rem; /* 카드 너비 줄임 */
+}
+
+/* 이미지 크기 */
+.card-img-top {
+  height: 20rem; /* 이미지 높이 줄임 */
+}
+
+/* 메뉴와 리뷰를 담는 섹션 */
+.menu-review-section {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+/* 리뷰 섹션 */
+.review-section {
+  margin-top: 20px;
+}
+
+/* 사이드바 스타일 */
+
+.sidebar {
+  position: fixed;
+  top: 90px;
+  left: 0;
+  width: 400px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: #FEFFD2;
+  padding: 20px;
+}
+
+.sidebar .logo {
+  color: #000000;
+  display: flex;
+  align-items: center;
+  padding: 25px 10px 15px;
+  font-weight: bold;
+}
+
+.sidebar .logo h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-left: 25px;
+  margin-left: 50px;
+  /* display: none; */
+}
+
+.sidebar:hover .logo h2 {
+  display: block;
+}
+
+.sidebar:hover li {
+  width: 120px;
+  height: 50px;
+}
+
+/* 장바구니 아이템 스타일 */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #FFBF78;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+/* 메뉴 리스트 스타일 */
+.menu-list-container {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.menu-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.menu-list-item .btn {
+  width: 40px;
+  background-color: #FFECB3;
+  color: #ff6a00;
+  font-weight: bold;
+}
+
+/* 사이드바 장바구니 아이템 버튼 영역 */
+.sidebar-buttonitem {
+  position: absolute;  /* 절대 위치 */
+  right: 10px;         /* 오른쪽에 붙음 */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* 사이드바 장바구니 버튼 스타일 */
+.sidebar .cart-item button {
+  background-color: #FFECB3; /* 버튼 배경색 */
+  color: #ff6a00; /* 버튼 글자색 */
+  font-weight: bold; /* 글자 두껍게 */
+  border: none; /* 기본 테두리 없애기 */
+  padding: 5px 10px; /* 버튼 안쪽 여백 */
+  cursor: pointer; /* 마우스 커서가 손 모양으로 바뀌도록 */
+  border-radius: 5px; /* 모서리 둥글게 */
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 30px;
+}
+
+/* 버튼 호버 시 스타일 */
+.sidebar .cart-item button:hover {
+  background-color: #ff6a00; /* 버튼 배경색 변경 */
+  color: #fff; /* 글자색 변경 */
+}
+
+
+/* 탭 버튼 스타일 */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  padding: 10px 60px;
+  margin: 0 10px;
+  cursor: pointer;
+  background-color: #FEFFD2; /* 기본 배경 색상 */
+  border: none; /* 기본 테두리 없앰 */
+  border-top: 3px solid #FF7D29; /* 위쪽 선 */
+  border-bottom: 3px solid #FF7D29; /* 아래쪽 선 */
+  transition: background-color 0.3s;
+  margin-top: 30px;
+}
+
+.tab-btn.active {
+  background-color: #FEFFD2; /* 활성화된 탭 배경색 */
+  color: #FF7D29; /* 글자색 */
+  border-top: 3px solid #FF7D29; /* 활성화된 탭의 위쪽 선 색상 */
+  border-bottom: 3px solid #FF7D29; /* 활성화된 탭의 아래쪽 선 색상 */
+}
+
+.menu-review-section {
+  padding: 20px;
+}
+
+.review-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가로 중앙 정렬 */
+}
+
+
+.review-form {
+    width: 60%;
+    margin-top: 20px;
+    background-color: #ffffff75;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.rating-input {
+    flex: 1;
+    text-align: left;
+}
+
+.reviewlist-form {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #ffffff75;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.review-rating {
+  margin-top: 20px;
+  margin-bottom: -13px;
+  margin-left: 5px;
+}
+
+.review-content {
+  width: 700px;
+  margin-top: 20px;
+  background-color: #ffffff75;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.pay-btn {
+  margin-top: 20px;
+  width: 120px;
+  height: 40px;
+  background-color: #FFBF78;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  display: flex; /* 수평으로 정렬 */
+  align-items: center; /* 세로로 가운데 정렬 */
+  justify-content: center; /* 텍스트와 이미지가 가운데에 오도록 */
+  flex-direction: row-reverse;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pay-btn:hover {
+  background-color: #FF9F40; /* 원하는 색상으로 변경 */
+}
+
+.pay-btn::before {
+  content: '';
+  display: inline-block;
+  background-image: url('../image/kakaopay.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 50px; /* 이미지 크기 */
+  height: 30px; /* 이미지 크기 */
+  margin-top: 9px;
+  margin-left: 10px;
+}

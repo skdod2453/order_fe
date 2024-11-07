@@ -6,37 +6,29 @@ export default function Home() {
   const [data, setData] = useState([]);
   const [nameSearch, setNameSearch] = useState('');
   const [categorySearch, setCategorySearch] = useState('');
-  
-  const searchName = async (e) => {
+  const [searchType, setSearchType] = useState('name'); // 'name' 또는 'category'
+
+  const search = async (e) => {
     e.preventDefault();
     try {
       let response;
-      if (nameSearch === 0) {
-        response = await restaurant.getAll();
+      if (searchType === 'name') {
+        response = nameSearch === '' ? await restaurant.getAll() : await restaurant.getName(nameSearch);
       } else {
-        response = await restaurant.getName(nameSearch);
+        response = categorySearch === '' ? await restaurant.getAll() : await restaurant.getCategory(categorySearch);
       }
       setData(response.data);
     } catch (error) {
       console.error(`error: ${error}`);
     }
     setNameSearch('');
+    setCategorySearch('');
   };
 
-  const searchCategory = async (e) => {
-    e.preventDefault();
-    try {
-      let response;
-      if (categorySearch === 0) {
-        response = await restaurant.getAll();
-      } else {
-        response = await restaurant.getCategory(categorySearch);
-      }
-      setData(response.data);
-    } catch (error) {
-      console.error(`error: ${error}`);
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      search(e);
     }
-    setCategorySearch('');
   };
 
   useEffect(() => {
@@ -53,17 +45,19 @@ export default function Home() {
 
   return (
     <div className="order-container text-center">
-      <div className='d-flex justify-content-center'>
-        <div className="input-group mt-3 w-50 m-2">
-          <span className="input-group-text" id="inputGroup-sizing-default">이름</span>
-          <input type="text" className="form-control" onChange={e => setNameSearch(e.target.value)} value={nameSearch}/>
-          <button type="button" className="btn bg-warning-subtle text-warning-emphasis" onClick={e => searchName(e)}>검색</button>
-        </div>
-        <div className="input-group mt-3 w-50 m-2">
-          <span className="input-group-text" id="inputGroup-sizing-default">카테고리</span>
-          <input type="text" className="form-control" onChange={e => setCategorySearch(e.target.value)} value={categorySearch}/>
-          <button type="button" className="btn bg-warning-subtle text-warning-emphasis" onClick={e => searchCategory(e)}>검색</button>
-        </div>
+      <div className='search'>
+        <select onChange={e => setSearchType(e.target.value)} value={searchType}>
+          <option value="name">이름</option>
+          <option value="category">카테고리</option>
+        </select>
+        <input 
+          type="text" 
+          onChange={e => searchType === 'name' ? setNameSearch(e.target.value) : setCategorySearch(e.target.value)} 
+          value={searchType === 'name' ? nameSearch : categorySearch} 
+          placeholder="검색어를 입력하세요" 
+          onKeyDown={handleKeyDown}
+        />
+        <button type="button" onClick={e => search(e)}>검색</button>
       </div>
       <div className="product-list">
         {data.length > 0 ? (
@@ -91,7 +85,7 @@ export default function Home() {
                   <li className="list-group-item" style={{ height: '4rem' }}>{restaurant.restaurantAddress}</li>
                 </ul>
                 <div className="card-body">
-                  <a href={`/detail/${restaurant.restaurantId}`} className="btn bg-warning-subtle text-warning-emphasis">주문</a>
+                  <a href={`/detail/${restaurant.restaurantId}`} className="btn" style={{ backgroundColor: '#FEFFD2', color: '#FF7D29', border: '1px solid #FFBF78',borderRadius: '5px'}}>주문</a>
                 </div>
               </div>
             </div>

@@ -1,27 +1,33 @@
+html, body {
+  margin: 0; /* 기본 마진 제거 */
+  padding: 0; /* 기본 패딩 제거 */
+  height: 100%; /* 전체 높이 설정 */
+  background-color: #FEFFD2; /* 배경색 설정 */
+}
+
 .order-container {
   display: flex;
   flex-direction: column;
   background-color: #FEFFD2;
-  min-width: 100vh;
+  min-height: 100vh;
   padding: 20px;
 }
 
 .product-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 80px 20px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 카드 최소 너비 300px, 나머지 공간 균등 분할 */
   gap: 20px;
+  padding: 80px 20px 20px;
 }
 
 .order-card {
-  flex: 1 0 calc(33.33% - 40px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.2s;
-  margin: 10px;
+  margin: 0; /* gap으로 여백 관리 */
 }
+
 
 .order-card:hover {
   transform: scale(1.05);
@@ -30,4 +36,56 @@
 .order-card-img-top {
   width: 100%;
   height: auto;
+}
+
+
+.search{
+  width: 75%;
+  margin: auto;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+  .search select {
+      padding: 0;
+      border: 0;
+      outline: none;
+      width: 15%;
+      cursor: pointer;
+      color: #000000;
+      font-weight: bold;
+      background: transparent;
+  }
+.search input{
+  width: 75%;
+  padding: 0;
+  border: none;
+  outline:none;
+  margin-left: 10px;
+
+}
+.search button{
+  width: 10%;
+  padding: 0;
+  border: none;
+  outline:none;
+  font-size: px;
+  margin: auto;
+  margin-right: 0;
+  color: #FFBF78;
+  font-weight: bold;
+  background: white;
+}
+@media only screen and (max-width: 600px) {
+  .search {
+      width: 100%;
+      flex-wrap: wrap;
+  }
+  .search select {
+      width: 100%;
+  }
 }
