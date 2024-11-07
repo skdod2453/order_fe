@@ -189,11 +189,11 @@ export default function Detail() {
   };
 
   const calculateAverageRating = () => {
-    if (reviewResponseDtoList.length === 0) return 0;
+    if (!reviewResponseDtoList || reviewResponseDtoList.length === 0) return 0;
     const totalRating = reviewResponseDtoList.reduce((acc, review) => acc + review.rating, 0);
     return totalRating / reviewResponseDtoList.length;
   };
-
+  
   const averageRating = calculateAverageRating();
 
   return (
