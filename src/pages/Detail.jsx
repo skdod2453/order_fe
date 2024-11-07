@@ -87,6 +87,7 @@ export default function Detail() {
       try {
         const response = await restaurant.getId(restaurantId, token);
         setData(response.data);
+        console.log(response.data)
       } catch (error) {
         if (error.response && error.response.status === 403) {
           navigate('/login');
@@ -107,13 +108,14 @@ export default function Detail() {
     };
 
     getId();
-  }, [restaurantId]);
+  }, [restaurantId, reviews]);
 
   if (!data || !data.restaurantResponseDto) {
     return <div className='container fs-4 fw-bold text-center'>가져오는 중입니다.....</div>;
   }
 
-  const { restaurantResponseDto, menuResponseDtoList } = data;
+  const { restaurantResponseDto, menuResponseDtoList, reviewResponseDtoList } = data;
+  console.log(reviewResponseDtoList)
 
   const addToCart = (menu) => {
     setCartItems((prevItems) => {
@@ -145,7 +147,8 @@ export default function Detail() {
     return price.toLocaleString();
   };
 
-  const handleSubmitReview = () => {
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
     if (rating === 0 || description.trim() === "") {
       Swal.fire({
         icon: 'warning',
@@ -156,22 +159,39 @@ export default function Detail() {
       });
       return;
     }
-    const newReview = {
-      id: Date.now(),
-      rating,
-      description,
-      userId: nickname,
-      date: new Date().toLocaleDateString(),
-    };
-    setReviews((prevReviews) => [newReview, ...prevReviews]);
-    setRating(0);
-    setDescription("");
+    try {
+      const response = await restaurant.createReview(description, rating, restaurantId, token);
+      Swal.fire({
+        icon: 'success',
+        title: '리뷰 등록 성공',
+        confirmButtonText: '확인',
+        confirmButtonColor: '#FF7D29',
+        background: '#white',
+        color: '#754F23',
+        iconColor: '#B6FFA1'
+      });
+  
+      const updatedReviews = await restaurant.getAllByRestaurant(restaurantId, token);
+      setReviews(updatedReviews.data);
+  
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: '리뷰 등록 실패',
+        text: '다시 시도해주세요.',
+        confirmButtonText: '확인',
+        confirmButtonColor: '#FF7D29',
+        background: '#white',
+        color: '#754F23',
+        iconColor: '#FFBF78'
+      });
+    }
   };
 
   const calculateAverageRating = () => {
-    if (reviews.length === 0) return 0;
-    const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0);
-    return totalRating / reviews.length;
+    if (reviewResponseDtoList.length === 0) return 0;
+    const totalRating = reviewResponseDtoList.reduce((acc, review) => acc + review.rating, 0);
+    return totalRating / reviewResponseDtoList.length;
   };
 
   const averageRating = calculateAverageRating();
@@ -283,9 +303,9 @@ export default function Detail() {
               />
             </div>
             <div className="reviews-list">
-              {reviews.length > 0 ? (
-                reviews.map((review) => (
-                  <div key={review.id} className="review-item">
+            {reviewResponseDtoList && reviewResponseDtoList.length > 0 ? (
+            reviewResponseDtoList.map((review,id) => (
+                  <div key={id} className="review-item">
                     <div className="review-rating">
                       <StarRatings
                         rating={review.rating}
@@ -297,8 +317,8 @@ export default function Detail() {
                       />
                     </div>
                     <div className="review-content">
-                      <span style={{color: '#FF7D29', fontWeight: 'bold'}}>{review.userId}</span>
-                      <p style={{ marginTop: '10px' }}>{review.description}</p>
+                      <span style={{color: '#FF7D29', fontWeight: 'bold'}}>{review.userName}</span>
+                      <p style={{ marginTop: '10px' }}>{review.reviewContents}</p>
                     </div>
                   </div>
                 ))
