@@ -8,8 +8,14 @@ import { PiBowlFoodDuotone } from "react-icons/pi";
 import { AiTwotoneStar } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
 import '../css/Detail.css';
+import axios from 'axios';
 
-function Sidebar({ cartItems, addToCart, removeFromCart }) {
+function Sidebar({ cartItems, addToCart, removeFromCart, restaurantId }) {
+  const navigate = useNavigate();
+  const [cookies] = useCookies(['Authorization']);
+  const [data, setData] = useState(null);
+  const token = cookies.Authorization;
+  
   const getTotalPrice = () => {
     return cartItems.reduce((total, item) => {
       const price = parseFloat(item.menuPrice.replace(/[^0-9.-]+/g, ""));
@@ -20,6 +26,62 @@ function Sidebar({ cartItems, addToCart, removeFromCart }) {
   const formatPrice = (price) => {
     return price.toLocaleString();
   };
+
+  const handlePayClick = async () => {
+    const updatedItems = cartItems.map(item => ({
+      menu: item.menuName,
+      price: parseInt(item.menuPrice.replace(/[^0-9.-]+/g, ""), 10), // 문자열을 long 타입으로 변환
+      count: item.quantity
+    }));
+  
+    try {
+      const response = await restaurant.postByCart(updatedItems, getTotalPrice(), restaurantId, token);
+      setData(response.data);
+      console.log(response.data);
+  
+      const { IMP } = window;
+      IMP.init('imp34231871'); // 가맹점 식별 코드
+  
+      IMP.request_pay({
+        pg: 'kakaopay.TC0ONETIME',
+        pay_method: 'card',
+        merchant_uid: `order_${new Date().getTime()}`, // 주문 고유 번호
+        name: response.data.name,
+        amount: response.data.amount,
+        buyer_email: response.data.buyer_email,
+        buyer_name: response.data.buyer_name,
+        buyer_tel: response.data.buyer_tel,
+      }, async (rsp) => {
+        if (rsp.success) {
+          try {
+            const { payData } = await axios.post(
+              `http://localhost:8080/pay/verify/${rsp.imp_uid}`,
+              {},
+              {
+                headers: {
+                  Authorization: `Bearer ${cookies.Authorization}`, // JWT 토큰 추가
+                }
+              }
+            );
+  
+            if (rsp.paid_amount === response.data.amount) {
+              alert('결제 성공');
+            } else {
+              alert('결제 실패: 금액 불일치');
+            }
+          } catch (error) {
+            console.error('결제 검증 중 오류 발생:', error);
+            alert(`결제 검증 중 오류 발생: ${error.message}`);
+          }
+        } else {
+          alert(`결제 실패: ${rsp.error_msg}`);
+        }
+      });
+    } catch (error) {
+      console.error('결제 요청 중 오류 발생:', error);
+    }
+  };
+  
 
   return (
     <div className="sidebar">
@@ -61,7 +123,7 @@ function Sidebar({ cartItems, addToCart, removeFromCart }) {
       <div className="total-price">
         <strong>총 가격: {formatPrice(getTotalPrice())} 원</strong>
       </div>
-      <button className="pay-btn">
+      <button className="pay-btn" onClick={handlePayClick}>
         결 제 
       </button>
     </div>
@@ -106,8 +168,17 @@ export default function Detail() {
         }
       }
     };
-
     getId();
+    const jquery = document.createElement("script");
+    jquery.src = "http://code.jquery.com/jquery-1.12.4.min.js";
+    const iamport = document.createElement("script");
+    iamport.src = "http://cdn.iamport.kr/js/iamport.payment-1.1.7.js";
+    document.head.appendChild(jquery);
+    document.head.appendChild(iamport);
+    return () => {
+    document.head.removeChild(jquery);
+    document.head.removeChild(iamport);
+    }
   }, [restaurantId, reviews]);
 
   if (!data || !data.restaurantResponseDto) {
@@ -123,6 +194,7 @@ export default function Detail() {
       if (existingItemIndex !== -1) {
         const updatedItems = [...prevItems];
         updatedItems[existingItemIndex].quantity += 1;
+        console.log(cartItems);
         return updatedItems;
       } else {
         return [...prevItems, { ...menu, quantity: 1 }];
@@ -170,6 +242,9 @@ export default function Detail() {
         color: '#754F23',
         iconColor: '#B6FFA1'
       });
+
+      setRating(0);
+      setDescription("");
   
       const updatedReviews = await restaurant.getAllByRestaurant(restaurantId, token);
       setReviews(updatedReviews.data);
@@ -198,7 +273,7 @@ export default function Detail() {
 
   return (
     <div className='detail-container'>
-      <Sidebar cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} />
+      <Sidebar cartItems={cartItems} addToCart={addToCart} removeFromCart={removeFromCart} restaurantId={restaurantId} />
 
       <div className="menu-review-section">
         <div className="container text-center mt-3 d-flex justify-content-center">
@@ -304,7 +379,8 @@ export default function Detail() {
             </div>
             <div className="reviews-list">
             {reviewResponseDtoList && reviewResponseDtoList.length > 0 ? (
-            reviewResponseDtoList.map((review,id) => (
+            reviewResponseDtoList
+            .map((review,id) => (
                   <div key={id} className="review-item">
                     <div className="review-rating">
                       <StarRatings

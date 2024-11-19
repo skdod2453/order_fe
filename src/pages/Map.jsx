@@ -1,5 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import * as restaurant from '../apis/restaurant';
+import { ImLocation2 } from "react-icons/im";
+import { PiMouseMiddleClickDuotone } from "react-icons/pi";
+import '../css/Map.css';
 
 export default function Map() {
     const mapElement = useRef(null); // 지도 엘리먼트를 참조하기 위한 ref
@@ -99,7 +102,7 @@ export default function Map() {
                                         <li class="list-group-item" style="height: 4rem;">${restaurantAddress}</li>
                                     </ul>
                                     <div class="card-body">
-                                        <a href="/detail/${restaurantId}" class="btn bg-warning-subtle text-warning-emphasis" tabindex="-1" role="button" aria-disabled="true">주문</a>
+                                        <a href="/detail/${restaurantId}" class="btn bg-warning-subtle text-warning-emphasis" tabindex="-1" role="button" aria-disabled="true" style>주문</a>
                                     </div>
                                 </div>`
                             });
@@ -119,14 +122,21 @@ export default function Map() {
         getAllAddress();
         addCurrentLocationMarker(); // 현재 위치 마커 추가
     }, []);
+    
+
 
     return (
-        <div
-            ref={mapElement}
-            style={{
-                width: "100%",
-                height: "50rem",
-            }}
-        />
+        <div className="mmm">
+            <p className='name'>
+                📍 : 현재 위치, <ImLocation2 style={{color: 'blue'}}/> : 가게
+            </p>
+            <p className='smallname'>
+            <PiMouseMiddleClickDuotone /> 마우스 휠로 확대·축소 가능하며, 파란 아이콘을 클릭하면 가게 정보가 표시됩니다.  <PiMouseMiddleClickDuotone />
+            </p>
+            <div
+                ref={mapElement}
+                className="map-container"
+            />
+        </div>
     );
 }

@@ -45,3 +45,21 @@ export const getAllByRestaurant = (restaurantId, token) => api.get(`/review/${re
     Authorization: `Bearer ${token}`,
   }
 });
+
+export const postByCart = (menuDtoList, total, restaurantId, token) => {
+  const formData = new FormData(); // FormData 객체 생성
+
+  // 데이터 추가
+  formData.append('data', new Blob([JSON.stringify({
+      menuDtoList,
+      total,
+      restaurantId
+  })], { type: 'application/json' })); // JSON 객체를 Blob으로 변환하여 추가
+
+  // API 호출 시 Authorization 헤더를 추가합니다.
+  return api.post('/cart/re', formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  });
+};
