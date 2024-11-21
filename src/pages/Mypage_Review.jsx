@@ -67,12 +67,12 @@ function OrderContainer() {
                 <div className="mypage-review-box">
                     {reviews.length > 0 ? (
                         reviews.map((review, index) => (
-                            <div key={index} className="review-item">
-                                <h3 className="review-store-name"><BiStore style={{ marginTop: '-3px' }}/> {review.storeName} </h3>
-                                <p className="review-rating"> ⭐     
+                            <div key={index} className="myreview-item">
+                                <h3 className="myreview-store-name"><BiStore style={{ marginTop: '-3px' }}/> {review.storeName} </h3>
+                                <p className="myreview-rating"> ⭐     
                                     <span className="rating-number">  {review.rating}</span> / 5
                                 </p>
-                                <p className="review-content">{review.content}</p>
+                                <p className="myreview-content">{review.content}</p>
                             </div>
                         ))
                     ) : (
