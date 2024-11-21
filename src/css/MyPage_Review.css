@@ -1,0 +1,33 @@
+.review-item {
+  width: 900px;
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.review-store-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.review-rating {
+  font-size: 16px;
+  color: #333;
+}
+
+.review-rating .rating-number {
+  color: #ff8c00;
+  font-weight: bold;
+}
+
+.review-content {
+  width: 100%;
+  font-size: 14px;
+  color: #666;
+  border: 1px solid #cccccc;
+  line-height: 1.5;
+}

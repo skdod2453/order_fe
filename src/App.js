@@ -7,7 +7,7 @@ import Header from './components/Header/Header.jsx'
 import Detail from './pages/Detail.jsx'
 import Map from './pages/Map.jsx';
 import Pay from './pages/Pay.jsx';
-import MyPage from './pages/Mypage_Order.jsx';
+import MyPage from './pages/Mypage.jsx';
 import MyPageReview from './pages/Mypage_Review.jsx';
 import Introduce from './pages/Introduce.jsx';
 
