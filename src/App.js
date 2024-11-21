@@ -7,7 +7,8 @@ import Header from './components/Header/Header.jsx'
 import Detail from './pages/Detail.jsx'
 import Map from './pages/Map.jsx';
 import Pay from './pages/Pay.jsx';
-import MyPage from './pages/Mypage_Order.jsx'
+import MyPage from './pages/Mypage_Order.jsx';
+import MyPageReview from './pages/Mypage_Review.jsx';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path = '/pay' element = { <Pay /> } />
         <Route path = '/detail/:restaurantId' element = { <Detail />} />
         <Route path = '/mypage' element = { <MyPage />} />
+        <Route path = '/mypage/review' element= { <MyPageReview /> } />
       </Routes>
     </>
   );

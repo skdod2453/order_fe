@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import '../css/MyPage.css';
 import Swal from 'sweetalert2';
 import { FaRegHandPointRight, FaRegHandPointLeft } from "react-icons/fa";
-import { FcCalendar } from "react-icons/fc";
 import { MdOutlineWavingHand } from "react-icons/md";
 import { PiPenBold } from "react-icons/pi";
 import { TiStarOutline } from "react-icons/ti";
@@ -66,7 +65,7 @@ function OrderContainer() {
                     <span className="mypage-order-text">{nickname} 님 안녕하세요!</span>
                 </div>
                 <div className="mypage-order-title">
-                    <span><FaRegHandPointRight />    ------------------    정보 수정    ------------------    <FaRegHandPointLeft /></span>
+                    <span><FaRegHandPointRight />    ------------------    내가 쓴 리뷰    ------------------    <FaRegHandPointLeft /></span>
                 </div>
             </div>
         </div>

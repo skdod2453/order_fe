@@ -1,56 +1,63 @@
-.order-container {
+.mypage-order-container {
   display: flex;
   background-color: #FEFFD2;
+  height: 100vh;
+  flex-direction: row;
 }
 
-.order_sidebar {
+.mypage-order_sidebar {
   width: 280px;
   background-color: #FEFFD2;
   padding: 20px;
   height: 100vh;
 }
 
-.order_sidebar ul {
+.mypage-order_sidebar ul {
   list-style-type: none;
   padding: 0;
   border-right: 1px solid #FFBF78;
+  margin: 0;
 }
 
-.order_sidebar ul li {
-  padding: 10px 0;
+.mypage-order_sidebar ul li {
+  width: 170px;
+  padding: 10px 20px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 30px;
+  margin-top: 20px;
   font-size: 18px;
+  position: relative;
+  text-align: center;
 }
 
-.order_sidebar ul li:hover {
-  background-color: #FFBF78;
+.mypage-order_sidebar ul li:hover {
+  background-color: #FFEEA9;
   border-radius: 20px;
 }
 
-.order_sidebar ul li.active {
+.mypage-order_sidebar ul li.active {
   text-decoration: underline;
   text-underline-offset: 5px;
 }
 
-.order_sidebar ul:hover li {
+.mypage-order_sidebar ul:hover li {
   text-decoration: none;
 }
 
-.order-content-area {
+.mypage-order-content-area {
   flex: 1;
   display: flex;
   flex-direction: column; /* 세로 방향으로 배치 */
   justify-content: flex-start; /* 시작 위치에서 정렬 */
   align-items: center;
   padding-top: 60px;
+  height: 100vh;
 }
 
-.order-rectangle {
+.mypage-order-rectangle {
   width: 800px;
   height: 130px;
-  background-color: #EAE1D3;
+  background-color: white;
   position: relative;
   display: flex;
   align-items: center;
@@ -59,7 +66,7 @@
   border-radius: 8px;
 }
 
-.order-circle {
+.mypage-order-circle {
   width: 70px;
   height: 70px;
   background-color: #E5E5E5;
@@ -94,13 +101,13 @@
 
 
 
-.order-text {
+.mypage-order-text {
   font-size: 16px;
   color: #333;
   margin-left: 100px;
 }
 
-.order-title {
+.mypage-order-title {
   font-size: 20px;
   color :#333;
   margin-top: 70px;
