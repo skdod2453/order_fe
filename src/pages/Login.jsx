@@ -81,7 +81,7 @@ export default function Login() {
       }).then(() => {
         setId('');
         setPassword('');
-        navigate("/home");
+        navigate("/introduce");
       });
     } catch (error) {
       console.error("로그인 실패:", error);

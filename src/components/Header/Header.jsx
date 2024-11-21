@@ -36,7 +36,7 @@ export default function NavBar() {
           background: '#fff',
           color: '#754F23'
         }).then(() => {
-          navigate('/login'); // 로그아웃 후 홈으로 이동
+          navigate('/introduce'); // 로그아웃 후 홈으로 이동
         });
       }
     });
@@ -47,19 +47,19 @@ export default function NavBar() {
   return (
     
     <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: '#FEFFD2' }}>
-      <Container>
+      <Container fluid>
         <Navbar.Brand>
-          <img src={logo} width={50} alt='logo' />
+          <img src={logo} width={50} alt='logo' 
+          style={{ cursor: 'pointer' }} // 클릭 가능하도록 스타일 추가
+          onClick={() => navigate('/introduce')} // 클릭 시 navigate 실행
+          />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/home">Store</Nav.Link>
             <Nav.Link href="/map">Map</Nav.Link>
-            <NavDropdown title="Other" id="collapsible-nav-dropdown">
-              <NavDropdown.Item onClick={() => navigate('/chatroom')}>채팅방</NavDropdown.Item>
-              <NavDropdown.Item onClick={() => navigate('/business')}>점주 페이지</NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link href="/olderlist">Order list</Nav.Link>
           </Nav>
           <Nav>
             {isLoggedIn ? (

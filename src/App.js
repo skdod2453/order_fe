@@ -16,7 +16,7 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path = '/' element = { <Login /> } />
+        <Route path = '/' element = { <Introduce /> } />
         <Route path = '/login' element = { <Login /> } />
         <Route path = '/join' element = { <Join />} />
         <Route path = '/home' element = { <Home />} />

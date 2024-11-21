@@ -1,0 +1,92 @@
+/* 기본 설정 */
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.introduce-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #FEFFD2;
+  min-height: 100vh;
+}
+
+.introduce-rectangle {
+  width: 100vw;
+  height: 200px;
+  background: linear-gradient(to right, #FFD09B, #fdab54, #ff8db3);
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #534a3f;
+  text-align: center;
+}
+
+.introduce-text {
+  margin: 0;
+  padding: 0;
+  margin-right: 100px;
+  color: #ffffff;
+}
+
+.introduce-logo {
+  width: 300px;
+  height: auto;
+}
+
+.introduce-image-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.introduce-food-image,
+.introduce-food2-image {
+  width: 980px;
+  height: 500px;
+  opacity: 0;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+
+.introduce-food-image {
+  animation-name: fadeIn, slideVertical;
+  animation-delay: 0s, 2s;
+}
+
+.introduce-food2-image {
+  animation-name: fadeIn, slideVertical;
+  animation-delay: 1s, 3s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideVertical {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(40px); 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); 
+  }
+}
