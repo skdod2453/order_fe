@@ -9,6 +9,7 @@ import Map from './pages/Map.jsx';
 import Pay from './pages/Pay.jsx';
 import MyPage from './pages/Mypage_Order.jsx';
 import MyPageReview from './pages/Mypage_Review.jsx';
+import Introduce from './pages/Introduce.jsx';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path = '/detail/:restaurantId' element = { <Detail />} />
         <Route path = '/mypage' element = { <MyPage />} />
         <Route path = '/mypage/review' element= { <MyPageReview /> } />
+        <Route path = '/introduce' element = { <Introduce /> } />
       </Routes>
     </>
   );
