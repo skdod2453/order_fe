@@ -59,7 +59,7 @@ export default function NavBar() {
           <Nav className="me-auto">
             <Nav.Link href="/home">Store</Nav.Link>
             <Nav.Link href="/map">Map</Nav.Link>
-            <Nav.Link href="/olderlist">Order list</Nav.Link>
+            <Nav.Link href="/userorderlist">Order list</Nav.Link>
           </Nav>
           <Nav>
             {isLoggedIn ? (

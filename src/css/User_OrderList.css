@@ -1,0 +1,69 @@
+.user-orderlist-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #FEFFD2;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.user-orderlist-header {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.user-orderlist-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 한 줄에 3개씩 */
+  gap: 20px; /* 카드 간격 */
+  width: 100%;
+  max-width: 1300px; /* 최대 폭 */
+}
+
+.user-orderlist-item {
+  display: flex;
+  flex-direction: column; /* 카드 내부는 세로 정렬 */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  gap: 15px;
+  min-height: 280px; /* 최소 높이로 설정 */
+  display: flex;
+  flex-direction: column;
+}
+
+.user-orderlist-item > div:nth-child(2) { /* 메뉴 목록 스타일 */
+  text-align: left; /* 왼쪽 정렬 */
+  margin-bottom: 10px;
+  line-height: 1.5;
+  flex-grow: 1; /* 메뉴가 많아져도 공간을 차지하도록 설정 */
+}
+
+.user-orderlist-item > div:not(:last-child) {
+  border-bottom: 1px solid #e0e0e0; /* 줄 추가 */
+  padding-bottom: 10px;
+}
+
+.user-orderlist-item .order-chat-btn {
+  background-color: #FFBF78;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  align-self: center; /* 버튼을 카드 중앙에 */
+  margin-top: auto; /* 버튼이 카드 하단에 고정되도록 */
+}
+
+.user-orderlist-item .order-chat-btn:hover {
+  background-color: #FE9F7A;
+}
