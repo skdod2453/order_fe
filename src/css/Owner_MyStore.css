@@ -1,0 +1,139 @@
+.owner-mystore-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #FEFFD2;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.owner-mystore-header {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.owner-mystore-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 한 줄에 3개씩 */
+  gap: 20px; /* 카드 간격 */
+  width: 100%;
+  max-width: 1300px; /* 최대 폭 */
+}
+
+.owner-mystore-item {
+  display: flex;
+  flex-direction: column; /* 카드 내부는 세로 정렬 */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  gap: 15px;
+  min-height: 280px; /* 최소 높이로 설정 */
+  display: flex;
+  flex-direction: column;
+}
+
+.owner-mystore-item > div:nth-child(2) { /* 메뉴 목록 스타일 */
+  text-align: left; /* 왼쪽 정렬 */
+  margin-bottom: 10px;
+  line-height: 1.5;
+  flex-grow: 1; /* 메뉴가 많아져도 공간을 차지하도록 설정 */
+}
+
+.owner-mystore-item > div:not(:last-child) {
+  border-bottom: 1px solid #e0e0e0; /* 줄 추가 */
+  padding-bottom: 10px;
+}
+
+.owner-buttons-container {
+  display: flex; /* 버튼을 한 줄로 나란히 배치 */
+  justify-content: space-between; /* 버튼 간격 조정 */
+  gap: 10px; /* 버튼 간격 */
+  margin-top: 15px;
+}
+
+.owner-chat-btn, .owner-time-btn {
+  flex: 1; /* 버튼 크기를 동일하게 설정 */
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.owner-chat-btn {
+  background-color: #FFBF78;
+  color: white;
+}
+
+.owner-chat-btn:hover {
+  background-color: #FE9F7A;
+}
+
+.owner-time-btn {
+  background-color: #FFBF78;
+  color: white;
+}
+
+.owner-time-btn:hover {
+  background-color: #FE9F7A;
+}
+
+
+/* 팝업 스타일 */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 520px;
+}
+
+.popup-buttons button {
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #FFBF78;
+  color: white;
+  font-weight: bold;
+}
+
+.popup-buttons button:hover {
+  background: #FE9F7A;
+}
+
+.popup-close {
+  margin-top: 20px;
+  background: #ccc;
+  color: black;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup-close:hover {
+  background: #999;
+}

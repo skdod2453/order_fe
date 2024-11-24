@@ -12,6 +12,7 @@ import MyPageReview from './pages/Mypage_Review.jsx';
 import Introduce from './pages/Introduce.jsx';
 import UserOrderList from './pages/User_OrderList.jsx';
 import Chat from './pages/Chat.jsx';
+import OwnerMyStore from './pages/Owner_MyStore.jsx';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path = '/introduce' element = { <Introduce /> } />
         <Route path = '/userorderlist' element = { <UserOrderList /> } />
         <Route path = '/chat' element = { <Chat /> } />
+        <Route path = '/ownermystore' element = { <OwnerMyStore /> } />
       </Routes>
     </>
   );

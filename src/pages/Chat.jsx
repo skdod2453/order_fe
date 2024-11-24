@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoArrowBack } from 'react-icons/io5'; // 나가기 이모티콘
+import { useLocation } from 'react-router-dom';
 import '../css/Chat.css';
 
 export default function Chat() {
@@ -10,6 +11,18 @@ export default function Chat() {
     { sender: 'store', text: '안녕하세요, 무엇을 도와드릴까요dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd?', timestamp: new Date() },
   ]); // 임의로 메시지 초기화
   const [input, setInput] = useState(''); // 입력 필드 상태
+
+  const currentLocation = useLocation();
+  useEffect(() => {
+    if (currentLocation.state?.autoMessage) {
+      const autoMessage = currentLocation.state.autoMessage;
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: 'store', text: autoMessage, timestamp: new Date() },
+      ]);
+    }
+  }, [currentLocation.state]);
+
 
   // 메시지 전송 핸들러
   const handleSend = () => {
