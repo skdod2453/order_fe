@@ -65,16 +65,37 @@ function Sidebar({ cartItems, addToCart, removeFromCart, restaurantId }) {
             );
   
             if (rsp.paid_amount === response.data.amount) {
-              alert('결제 성공');
+              Swal.fire({
+                title: "결제 성공",
+                text: "예상 소용시간은 채팅방을 확인하세요",
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "채팅방 가기",
+                cancelButtonText: "홈으로 가기",
+              }).then((result) => {
+                navigate(result.isConfirmed ? "/chat" : "/introduce");
+              });
             } else {
-              alert('결제 실패: 금액 불일치');
+              Swal.fire({
+                icon: 'error',
+                title: '결제 실패',
+                text: '결제 금액이 일치하지 않습니다.',
+              });
             }
           } catch (error) {
             console.error('결제 검증 중 오류 발생:', error);
-            alert(`결제 검증 중 오류 발생: ${error.message}`);
+            Swal.fire({
+              icon: 'error',
+              title: '결제 검증 중 오류 발생',
+              text: `${error.message}`,
+            });
           }
         } else {
-          alert(`결제 실패: ${rsp.error_msg}`);
+          Swal.fire({
+            icon: 'error',
+            title: '결제 실패',
+            text: `${rsp.error_msg}`,
+          });
         }
       });
     } catch (error) {
