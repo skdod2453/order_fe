@@ -2,8 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { IoArrowBack } from 'react-icons/io5'; // 나가기 이모티콘
 import { useLocation } from 'react-router-dom';
 import '../css/Chat.css';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 export default function Chat() {
+  const navigate = useNavigate();
+  const handleExitClick = () => {
+    Swal.fire({
+      title: '정말로 나가시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '예',
+      cancelButtonText: '아니오',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate('/introduce'); 
+      }
+    });
+  };
+  
   const [messages, setMessages] = useState([
     { sender: 'user', text: '안녕하세요!', timestamp: new Date() },
     { sender: 'store', text: '안녕하세요, 무엇을 도와드릴까요?', timestamp: new Date() },
@@ -47,7 +64,7 @@ export default function Chat() {
       <div className='chat-card'>
         {/* 상단 헤더 */}
         <div className='chat-header'>
-          <IoArrowBack className='chat-exit-icon' onClick={() => alert('채팅방 나가기')} />
+          <IoArrowBack className='chat-exit-icon' onClick={handleExitClick} />
           <span className='chat-store-name'>가게 이름</span>
         </div>
 
