@@ -11,6 +11,7 @@ import MyPage from './pages/Mypage.jsx';
 import MyPageReview from './pages/Mypage_Review.jsx';
 import Introduce from './pages/Introduce.jsx';
 import UserOrderList from './pages/User_OrderList.jsx';
+import Chat from './pages/Chat.jsx';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path = '/mypage/review' element= { <MyPageReview /> } />
         <Route path = '/introduce' element = { <Introduce /> } />
         <Route path = '/userorderlist' element = { <UserOrderList /> } />
+        <Route path = '/chat' element = { <Chat /> } />
       </Routes>
     </>
   );

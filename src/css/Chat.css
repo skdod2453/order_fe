@@ -1,0 +1,144 @@
+.chat-outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FEFFD2;
+  min-height: 100vh;
+}
+
+/* 카드 스타일 */
+.chat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  margin-top: -60px;
+  width: 50%;
+  height: 750px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+/* 상단 헤더 */
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* 나가기 이모티콘 */
+.chat-exit-icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* 가게 이름 */
+.chat-store-name {
+  flex-grow: 1;
+  text-align: center;
+}
+
+/* 대화 내용 */
+.chat-messages {
+  flex-grow: 1;
+  width: 100%;
+  height: 500px; /* 고정 높이 */
+  padding: 15px;
+  box-sizing: border-box;
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 개별 메시지 */
+.chat-message {
+  margin: 10px 0;
+  padding: 10px 15px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  min-width: 40px;
+}
+
+/* 메시지 텍스트 */
+.message-text {
+  margin-bottom: 5px;
+}
+
+/* 시간 */
+.message-time {
+  font-size: 12px;
+  color: #888;
+  align-self: flex-end;
+}
+
+/* 사용자 메시지 */
+.user-message {
+  background-color: #ffffff;
+  align-self: flex-end;
+  text-align: right;
+  margin-left: auto; /* 오른쪽 정렬 */
+  min-width: 40px; /* 최소 크기 설정 */
+  border: 1px solid #b3eaff;
+}
+
+/* 가게 메시지 */
+.store-message {
+  background-color: #b3eaff;
+  align-self: flex-start;
+  text-align: left;
+  margin-right: auto; /* 왼쪽 정렬 */
+  min-width: 40px; /* 최소 크기 설정 */
+}
+
+
+/* 입력 영역 */
+.chat-input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 15px;
+  border-top: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+/* 입력 필드 */
+.chat-input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+}
+
+/* 전송 버튼 */
+.chat-send-btn {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #FFEEA9;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.chat-send-btn:hover {
+  background-color: #FF7D29;
+}
