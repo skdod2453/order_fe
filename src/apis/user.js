@@ -25,3 +25,26 @@ export const join = (id, password, name, phone, email, type) => {
 
   return api.post('/join', formData); // Content-Type 설정 없음
 };
+
+export const updateUser = (password, email, token) => {
+  const formData = new FormData();
+  formData.append('data', new Blob([JSON.stringify({
+    userPassword: password,
+    userEmail: email
+})], { type: 'application/json' }));
+
+return api.patch('/update', formData, {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  }
+});
+}
+
+export const getReviewByUser = (token) => {
+
+  return api.patch('/review', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  });
+}

@@ -69,6 +69,16 @@ export default function Login() {
         });
       }
 
+      const authHeaderType = response.headers['type'] || response.headers['Type'];
+      if (authHeaderType) {
+        // 쿠키에 저장
+        setCookie('Type', authHeaderType, {
+          path: '/',
+          secure: false, // 실제 환경에서는 true로 설정
+          httpOnly: false,
+        });
+      }
+
       
       Swal.fire({
         icon: 'success',

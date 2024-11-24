@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as restaurant from '../apis/restaurant';
+import { startChat } from '../apis/chat';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import Swal from 'sweetalert2';
@@ -65,6 +66,10 @@ function Sidebar({ cartItems, addToCart, removeFromCart, restaurantId }) {
             );
   
             if (rsp.paid_amount === response.data.amount) {
+              try {
+                const chatResponse = await startChat(restaurantId, token);
+                console.log("chatId: " + chatResponse.data)
+
               Swal.fire({
                 title: "결제 성공",
                 text: "예상 소용시간은 채팅방을 확인하세요",
@@ -73,8 +78,15 @@ function Sidebar({ cartItems, addToCart, removeFromCart, restaurantId }) {
                 confirmButtonText: "채팅방 가기",
                 cancelButtonText: "홈으로 가기",
               }).then((result) => {
-                navigate(result.isConfirmed ? "/chat" : "/introduce");
+                if (result.isConfirmed) {
+                  navigate('/chat', { state: {chatId: chatResponse.data.chatId } });
+                } else {
+                  navigate('/introduce');
+                }
               });
+            } catch (error) {
+              console.log(error);
+            }
             } else {
               Swal.fire({
                 icon: 'error',
