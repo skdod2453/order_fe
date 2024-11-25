@@ -48,3 +48,11 @@ export const getReviewByUser = (token) => {
     }
   });
 }
+
+export const getName = (token) => {
+  return api.get(`/order/name`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  })
+}

@@ -8,7 +8,9 @@ import { MdOutlineWavingHand } from "react-icons/md";
 import { PiPenBold } from "react-icons/pi";
 import { TiStarOutline } from "react-icons/ti";
 import { BiStore } from "react-icons/bi";
-import axios from "axios";
+import { useCookies } from 'react-cookie';
+import { getAllByUser } from '../apis/restaurant';
+import { getName } from '../apis/user';
 
 function Sidebar() {
     const navigate = useNavigate();
@@ -35,17 +37,60 @@ function Sidebar() {
 }
 
 function OrderContainer() {
-    const [nickname, setNickname] = useState('자나요');
+    const [name, setName] = useState('');
     const [reviews, setReviews] = useState([]);
+    const [cookies] = useCookies(['Authorization']);
+    const token = cookies.Authorization;
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const mockReviews = [
-            { storeName: "맛있는 식당", rating: 5, content: "정말 맛있었어요! 강추합니다." },
-            { storeName: "친절한 카페", rating: 4, content: "직원이 친절하고 분위기가 좋아요." },
-            { storeName: "감성 빵집", rating: 3, content: "빵은 맛있는데 가격이 조금 비쌌어요." },
-        ];
-        setReviews(mockReviews);
-    }, []);
+        if (token) {
+            getName(token)
+                .then((response) => {
+                    console.log('API 응답:', response); // 응답 확인
+                    if (response.data) {
+                        setName(response.data); 
+                    } else {
+                        console.error('응답 데이터에 name 필드가 없습니다.');
+                    }
+                })
+                .catch((error) => {
+                    console.error('이름을 가져오는 중 오류가 발생했습니다.', error);
+                });
+        }
+    }, [token]);
+
+    useEffect(() => {
+        if (token) {
+            getAllByUser(token)
+                .then((response) => {
+                    setReviews(response.data);
+                })
+                .catch((error) => {
+                    console.error('리뷰를 가져오는 중 오류 발생:', error);
+                    if (error.response && error.response.status === 404) {
+                        Swal.fire({
+                            icon: 'info',
+                            title: '작성한 리뷰가 없습니다.',
+                            text: '리뷰가 아직 없습니다.',
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '리뷰 조회 실패',
+                            text: '리뷰를 가져오는 데 실패했습니다.',
+                        });
+                    }
+                });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: '로그인 필요',
+                text: '리뷰를 조회하려면 로그인해야 합니다.',
+            });
+            navigate('/login');
+        }
+    }, [token, navigate]);
 
     return (
         <div className="mypage-order-container">
@@ -55,7 +100,7 @@ function OrderContainer() {
                     <div className="mypage-order-circle">
                         <MdOutlineWavingHand size={38} color="#333" />
                     </div>
-                    <span className="mypage-order-text">{nickname} 님 안녕하세요!</span>
+                    <span className="mypage-order-text">{name} 님 안녕하세요!</span>
                 </div>
                 <div className="mypage-order-title">
                     <span>
@@ -68,11 +113,11 @@ function OrderContainer() {
                     {reviews.length > 0 ? (
                         reviews.map((review, index) => (
                             <div key={index} className="myreview-item">
-                                <h3 className="myreview-store-name"><BiStore style={{ marginTop: '-3px' }}/> {review.storeName} </h3>
+                                <h3 className="myreview-store-name"><BiStore style={{ marginTop: '-3px' }}/> {review.restaurantName} </h3>
                                 <p className="myreview-rating"> ⭐     
                                     <span className="rating-number">  {review.rating}</span> / 5
                                 </p>
-                                <p className="myreview-content">{review.content}</p>
+                                <p className="myreview-content">{review.reviewContents}</p>
                             </div>
                         ))
                     ) : (

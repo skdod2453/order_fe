@@ -76,3 +76,11 @@ export const getOrderCustomer = (token) => api.get(`/order/customer` , {
       Authorization: `Bearer ${token}`,
     }
 }) 
+
+export const getAllByUser = (token) => {
+  return api.get(`/review`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
