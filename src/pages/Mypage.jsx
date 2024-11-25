@@ -40,7 +40,7 @@ function OrderContainer() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [cookies] = useCookies(['Authorization']);
+    const [cookies, , removeCookie] = useCookies(['Authorization']);
     const token = cookies.Authorization;
     const navigate = useNavigate();
 
@@ -125,6 +125,8 @@ function OrderContainer() {
                 text: '비밀번호가 성공적으로 변경되었습니다.',
             });
             setPassword(''); // 입력 필드 초기화
+            removeCookie('Authorization', { path: '/' });
+            navigate('/login');
         } catch (error) {
             Swal.fire({
                 icon: 'error',

@@ -61,28 +61,32 @@ export default function User_OrderList() {
     <div className='user-orderlist-container'>
       <div className='user-orderlist-header'>주문 내역 <RiMenuSearchLine style={{ fontSize: '35px' }}/></div>
       <div className='user-orderlist-content'>
-        {orders.map((order, index) => (
-          <div className='user-orderlist-item' key={index}>
-            <div style={{ fontWeight: 'bold', fontSize: '18px', color: '#FF7D29' }}>{order.restaurant}</div>
-            <div>
-              {groupMenus(order.menuList).map((menu, idx) => (
-                <div key={idx}><IoHeartCircleOutline /> {menu}</div>
-              ))}
+        {orders.length === 0 ? (
+          <div className='user-order-no'>주문 내역이 없습니다.</div> // 주문 내역이 없을 때 메시지 표시
+        ) : (
+          orders.map((order, index) => (
+            <div className='user-orderlist-item' key={index}>
+              <div style={{ fontWeight: 'bold', fontSize: '18px', color: '#FF7D29' }}>{order.restaurant}</div>
+              <div>
+                {groupMenus(order.menuList).map((menu, idx) => (
+                  <div key={idx}><IoHeartCircleOutline /> {menu}</div>
+                ))}
+              </div>
+              <div style={{ fontWeight: 'bold' }}>
+                <FcMoneyTransfer /> 총 가격 : {parseInt(order.amount, 10).toLocaleString()}원
+              </div>
+              <div>
+                <HiMiniCalendarDays /> 주문 날짜 : {formatData(order.timeStamp)}
+              </div>
+              <button
+                className='order-chat-btn'
+                onClick={() => navigate(`/chat/${order.chat}`)}
+              >
+                채팅방
+              </button>
             </div>
-            <div style={{ fontWeight: 'bold' }}>
-              <FcMoneyTransfer /> 총 가격 : {parseInt(order.amount, 10).toLocaleString()}원
-            </div>
-            <div>
-              <HiMiniCalendarDays /> 주문 날짜 : {formatData(order.timeStamp)}
-            </div>
-            <button
-              className='order-chat-btn'
-              onClick={() => navigate(`/chat/${order.chat}`)}
-            >
-              채팅방
-            </button>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );
