@@ -14,9 +14,8 @@ import axios from 'axios';
 function Sidebar({ cartItems, addToCart, removeFromCart, restaurantId }) {
   const navigate = useNavigate();
   const [cookies] = useCookies(['Authorization']);
-  const [data, setData] = useState(null);
   const token = cookies.Authorization;
-  
+  const [data, setData] = useState(null);
   const getTotalPrice = () => {
     return cartItems.reduce((total, item) => {
       const price = parseFloat(item.menuPrice.replace(/[^0-9.-]+/g, ""));

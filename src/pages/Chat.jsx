@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { IoArrowBack } from 'react-icons/io5'; // 나가기 이모티콘
-import { useLocation } from 'react-router-dom';
+import { IoArrowBack } from 'react-icons/io5';
+import { useParams, useNavigate } from 'react-router-dom';
 import '../css/Chat.css';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { getChat, sendChat } from '../apis/chat'; 
 
 export default function Chat() {
+  const { chatId } = useParams();
   const navigate = useNavigate();
+  const [cookies] = useCookies(['Authorization']);
+  const token = cookies.Authorization;
+
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+
   const handleExitClick = () => {
     Swal.fire({
       title: '정말로 나가시겠습니까?',
@@ -20,68 +28,93 @@ export default function Chat() {
       }
     });
   };
-  
-  const [messages, setMessages] = useState([
-    { sender: 'user', text: '안녕하세요!', timestamp: new Date() },
-    { sender: 'store', text: '안녕하세요, 무엇을 도와드릴까요?', timestamp: new Date() },
-    { sender: 'user', text: 'ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd!', timestamp: new Date() },
-    { sender: 'store', text: '안녕하세요, 무엇을 도와드릴까요dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd?', timestamp: new Date() },
-  ]); // 임의로 메시지 초기화
-  const [input, setInput] = useState(''); // 입력 필드 상태
 
-  const currentLocation = useLocation();
   useEffect(() => {
-    if (currentLocation.state?.autoMessage) {
-      const autoMessage = currentLocation.state.autoMessage;
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { sender: 'store', text: autoMessage, timestamp: new Date() },
-      ]);
-    }
-  }, [currentLocation.state]);
+    const fetchChat = async () => {
+      try {
+        const response = await getChat(chatId, token);
+        console.log(response.data);
+        if (response.data) {
+          setMessages(response.data);
+        } else {
+          console.error('채팅 메시지가 없습니다.');
+        }
+      } catch (error) {
+        console.error('채팅 데이터 가져오기 실패', error);
+      }
+    };
+    const intervalId = setInterval(fetchChat, 1000);
 
+     return () => clearInterval(intervalId);
+  }, [chatId, token]);
 
-  // 메시지 전송 핸들러
-  const handleSend = () => {
+  const handleSend = async () => {
     if (input.trim()) {
-      setMessages([
-        ...messages,
-        { sender: 'user', text: input, timestamp: new Date() }, // 시간과 함께 메시지 추가
-      ]);
-      setInput(''); // 입력 초기화
+
+      const newMessage = { 
+        sender: 'user', 
+        content: input, 
+        date: new Date().toISOString(),
+        isUser: true 
+      };
+    
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      setInput(''); 
+    
+      try {
+        const response = await sendChat(chatId, input, token);
+        console.log('서버 응답:', response); 
+    
+        if (response.data) {
+          const sentMessage = response.data;
+          sentMessage.date = new Date(sentMessage.date).toISOString();
+          setMessages((prevMessages) => [...prevMessages, sentMessage]);
+        }
+      } catch (error) {
+        console.error('메시지 전송 실패', error);
+      }
     }
   };
 
-  // 시간을 'HH:MM' 형식으로 변환하는 함수
   const formatTime = (timestamp) => {
-    const hours = timestamp.getHours();
-    const minutes = timestamp.getMinutes();
+    if (!timestamp || isNaN(new Date(timestamp).getTime())) {
+      console.error('Invalid timestamp:', timestamp);
+      return 'Invalid time'; 
+    }
+    
+    const date = new Date(timestamp);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
     return `${hours}:${minutes < 10 ? '0' + minutes : minutes}`;
   };
 
   return (
     <div className='chat-outer-container'>
       <div className='chat-card'>
-        {/* 상단 헤더 */}
         <div className='chat-header'>
           <IoArrowBack className='chat-exit-icon' onClick={handleExitClick} />
           <span className='chat-store-name'>가게 이름</span>
         </div>
 
-        {/* 대화 내용 */}
         <div className='chat-messages'>
-          {messages.map((message, index) => (
+        {messages.length > 0 ? ( 
+          messages.map((message, index) => (
             <div
-              key={index}
-              className={`chat-message ${message.sender === 'user' ? 'user-message' : 'store-message'}`}
+              key={message.id || `message-${index}`}
+              className={`chat-message ${message.isUser ? 'user-message' : 'store-message'}`}
             >
-              <div className='message-text'>{message.text}</div>
-              <div className='message-time'>{formatTime(message.timestamp)}</div>
+              <div className='message-text'>{message.content}</div>
+              <div className='message-time'>
+                {formatTime(message.date || new Date().toISOString())}
+              </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <div className='no-messages'>메시지가 없습니다.</div>
+        )}
+
         </div>
 
-        {/* 입력 영역 */}
         <div className='chat-input-container'>
           <input
             type='text'

@@ -77,7 +77,7 @@ export default function User_OrderList() {
             </div>
             <button
               className='order-chat-btn'
-              onClick={() => navigate('/chat')}
+              onClick={() => navigate(`/chat/${order.chat}`)}
             >
               채팅방
             </button>

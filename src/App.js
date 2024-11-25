@@ -30,7 +30,7 @@ function App() {
         <Route path = '/mypage/review' element= { <MyPageReview /> } />
         <Route path = '/introduce' element = { <Introduce /> } />
         <Route path = '/userorderlist' element = { <UserOrderList /> } />
-        <Route path = '/chat' element = { <Chat /> } />
+        <Route path = '/chat/:chatId' element = { <Chat /> } />
         <Route path = '/ownermystore' element = { <OwnerMyStore /> } />
       </Routes>
     </>

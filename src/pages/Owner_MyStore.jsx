@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../css/Owner_MyStore.css';
 import { getOrderOwner } from '../apis/restaurant';
+import { sendChat } from '../apis/chat'; // 이미 정의된 sendChat 함수 import
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { IoHeartCircleOutline } from "react-icons/io5";
@@ -12,6 +13,7 @@ import { FcAlarmClock } from "react-icons/fc";
 export default function Owner_MyStore() {
   const navigate = useNavigate();
   const [popupOpen, setPopupOpen] = useState(false);
+  const [popupChatId, setPopupChatId] = useState(null); // 현재 팝업에서 사용할 chat ID 저장
   const [orders, setOrders] = useState([]);
   const [cookies] = useCookies(['Authorization']);
   const token = cookies.Authorization;
@@ -32,10 +34,17 @@ export default function Owner_MyStore() {
     );
   };
 
-  const handleTimeSelect = (time) => {
+  const handleTimeSelect = async (time, chatId) => {
     setPopupOpen(false);
     const message = `주문 조리 완료 시간은 약 ${time}분이 걸립니다.`;
-    navigate('/chat', { state: { autoMessage: message } }); // 메시지를 전달
+
+    try {
+      // 기존의 sendChat 함수 사용
+      await sendChat(chatId, message, token); 
+      navigate(`/chat/${chatId}`, { state: { autoMessage: message } }); // 페이지 이동
+    } catch (error) {
+      console.error('메시지 전송 실패:', error);
+    }
   };
 
   useEffect(() => {
@@ -61,10 +70,8 @@ export default function Owner_MyStore() {
       }
     };
 
-    // 1초마다 getOwnerOrderList를 호출
     const interval = setInterval(getOwnerOrderList, 1000);
 
-    // 컴포넌트가 언마운트될 때 interval을 정리
     return () => clearInterval(interval);
 
   }, [token]);
@@ -75,7 +82,7 @@ export default function Owner_MyStore() {
         주문 내역 <RiMenuSearchLine style={{ fontSize: '35px' }} />
       </div>
       <div className='owner-mystore-content'>
-      {orders.filter(order => order.timeStamp !== null).map((order, index) => (
+        {orders.filter(order => order.timeStamp !== null).map((order, index) => (
           <div className='owner-mystore-item' key={index}>
             <div style={{ fontWeight: 'bold', fontSize: '18px', color: '#FF7D29' }}>
               {order.restaurant} {/* 레스토랑 이름 */}
@@ -95,13 +102,16 @@ export default function Owner_MyStore() {
             <div className='owner-buttons-container'>
               <button
                 className='owner-chat-btn'
-                onClick={() => navigate('/chat')}
+                onClick={() => navigate(`/chat/${order.chat}`)}
               >
                 채팅방
               </button>
               <button
                 className='owner-time-btn'
-                onClick={() => setPopupOpen(true)}
+                onClick={() => {
+                  setPopupOpen(true);
+                  setPopupChatId(order.chat); // 현재 주문의 chat ID 저장
+                }}
               >
                 시간 선택
               </button>
@@ -117,7 +127,10 @@ export default function Owner_MyStore() {
               <p>시간을 선택하시면 자동으로 채팅을 전송합니다</p>
               <div className='popup-buttons'>
                 {[10, 20, 30, 50].map((time) => (
-                  <button key={time} onClick={() => handleTimeSelect(time)}>
+                  <button
+                    key={time}
+                    onClick={() => handleTimeSelect(time, popupChatId)} // 저장된 chat ID 사용
+                  >
                     {time}분
                   </button>
                 ))}
