@@ -78,7 +78,7 @@ function Sidebar({ cartItems, addToCart, removeFromCart, restaurantId }) {
                 cancelButtonText: "홈으로 가기",
               }).then((result) => {
                 if (result.isConfirmed) {
-                  navigate('/chat', { state: {chatId: chatResponse.data.chatId } });
+                  navigate(`/chat/${chatResponse.data}`);
                 } else {
                   navigate('/introduce');
                 }
