@@ -36,7 +36,7 @@ export default function Pay() {
             try {
                 console.log(cookies.Authorization)
                 const { data } = await axios.post(
-                    'http://localhost:8080/pay/verify/' + rsp.imp_uid,
+                    'http://43.202.86.72:8080/pay/verify/' + rsp.imp_uid,
                     {}, // 빈 본문, 본문 데이터가 필요하지 않다면 빈 객체 사용
                     {
                         headers: {

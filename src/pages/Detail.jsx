@@ -55,7 +55,7 @@ function Sidebar({ cartItems, addToCart, removeFromCart, restaurantId }) {
         if (rsp.success) {
           try {
             const { payData } = await axios.post(
-              `http://localhost:8080/pay/verify/${rsp.imp_uid}`,
+              `http://43.202.86.72:8080/pay/verify/${rsp.imp_uid}`,
               {},
               {
                 headers: {
