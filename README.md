@@ -48,3 +48,7 @@
     <img src="https://skillicons.dev/icons?i=react,bootstrap,npm,html,css,js,figma,github" />
   </a>
 </p>
+
+| ![박성제]) | ![장나영](https://avatars.githubusercontent.com/u/112605030?v=4) | 
+| :-------------------------------------------------------------: | :-------------------------------------------------------------: |
+|             [강민수](https://github.com/chuu8319)              |              [장나영](https://github.com/skdod2453)               | 
